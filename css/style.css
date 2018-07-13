@@ -8,6 +8,11 @@ text-align: left;
 background-color: #fff;
 }
 
+
+/*
+ Navbar styles
+*/
+
 .top{
 	background-color: #3F729B;
 	overflow:  hidden;
@@ -63,4 +68,35 @@ background-color:#59698d;
 
 .dropdown:hover .account{
 background-color:#59698d;
+}
+
+
+/* Register form  styles */
+
+#register{
+	padding: 5px;
+	padding-left: 400px;
+	padding-right: 400px;
+}
+
+input[type=text], input[type=password]{
+	width: 500px;
+	padding: 10px;
+	margin: 5px 0 22px 0;
+	
+}
+
+.register_button{
+	background-color: #3F729B;
+	color: #ffffff;
+	padding-top: 16px 20px;
+	margin: 8px;
+	width: 150px;
+	font-size: 20px;
+}
+
+
+button {
+	float: center;
+	padding: 14px 16px;
 }
