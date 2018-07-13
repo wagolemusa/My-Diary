@@ -93,10 +93,14 @@ input[type=text], input[type=password]{
 	margin: 8px;
 	width: 150px;
 	font-size: 20px;
+	opacity: 0.9;
+	border: none;
 }
 
 
 button {
 	float: center;
 	padding: 14px 16px;
+		opacity: 0.9;
+	border: none;
 }
