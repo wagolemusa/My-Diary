@@ -16,7 +16,6 @@ background-size: 1300px 670px;
 /*
  Navbar styles
  background-repeat: no-repeat, repeat;
-
 */
 
 .top{
@@ -253,9 +252,23 @@ padding-right: 50px;
 color: #ffffff;
 }
 
-.book-container
-{
+.book-container{
 	padding-left: 50px;
 padding-right: 50px;
+
+}
+
+.book-container button{
+	float: right;
+	background-color: #FF8800;
+	color: #ffffff;
+	font-size: 20px;
+	opacity: 0.9;
+	cursor: pointer;
+	border: none;
+}
+
+.book-container table{
+		width: 900px;
 
 }
