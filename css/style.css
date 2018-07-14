@@ -188,18 +188,74 @@ background: rgba(0, 0, 0, 0.55);
 	text-decoration: none;
 }
 
+/*---- Add Diary Style-------*/
 .row{
 	background: rgba(0, 0, 0, 0.55);
-
+	color: #ffffff;
 	display: flex;
 }
 
 .column{
 	flex: 50%;
 	padding: 10px;
-	height: 500px;
 	width: 50%;
 	padding-top: 20px;
 	padding-left: 20px;
 	padding-right: 20px;
+}
+input[type=date], input[type=time]{
+	width: 150px;
+	padding: 10px;
+	margin: 5px 0 22px 0;
+	
+}
+.data b{
+	font-size: 20px;
+
+
+}
+
+.data{
+background: rgba(0, 0, 0, 0.55);
+padding: 12px;
+
+}
+
+
+.book{
+	cursor: pointer;
+background: rgba(0, 0, 0, 0.55);
+
+padding: 12px;
+border: 12px;
+border: 1px solid rgba(255, 255, 255, 0.55);
+border-radius: 5px;
+margin-bottom: 10px;
+}
+td, th{
+	padding: 8px;
+	text-align: left;
+}
+table{
+	width: 500px;
+}
+
+.book-update{
+cursor: pointer;
+background: rgba(0, 0, 0, 0.55);
+padding: 12px;
+border: 12px;
+border: 1px solid rgba(255, 255, 255, 0.55);
+border-radius: 5px;
+margin-bottom: 10px;
+padding-left: 50px;
+padding-right: 50px;
+color: #ffffff;
+}
+
+.book-container
+{
+	padding-left: 50px;
+padding-right: 50px;
+
 }
