@@ -5,12 +5,18 @@ font-size: 1rem;
 font-weight: 400;
 line-height: 1.5;
 text-align: left;
-background-color: #fff;
+background-image: url(../img/diary.jpg);
+background-attachment: fixed;
+background-repeat: no-repeat;
+background-size: 1300px 670px;
+
 }
 
 
 /*
  Navbar styles
+ background-repeat: no-repeat, repeat;
+
 */
 
 .top{
@@ -74,9 +80,21 @@ background-color:#59698d;
 /* Register form  styles */
 
 #register{
+	background: rgba(0, 0, 0, 0.55);
 	padding: 5px;
 	padding-left: 400px;
 	padding-right: 400px;
+	color: #ffffff;
+	font-size: 20px
+}
+#login{
+		background: rgba(0, 0, 0, 0.55);
+
+	padding: 5px;
+	padding-left: 400px;
+	padding-right: 400px;
+	color: #ffffff;
+font-size: 20px;
 }
 
 input[type=text], input[type=password]{
@@ -103,4 +121,85 @@ button {
 	padding: 14px 16px;
 		opacity: 0.9;
 	border: none;
+}
+
+/* home backgraund */
+
+.homemusa{
+background: rgba(0, 0, 0, 0.55);
+
+	height: 550px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	padding-top: 20px;
+}
+
+.homemusa-text{
+	text-align: center;
+	left: 50%
+	transform: translate(-50%, -50%);
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 30px;
+}
+
+.homemusa-text h1{
+	font-size: 60px;
+
+}
+.homemusa-text p{
+	font-size: 24px;
+}
+
+.homemusa-text a{
+  background-color: dodgerblue;
+	color: #ffffff;
+	margin: 20px;
+	width: 150px;
+	font-size: 30px;
+	font-weight: 100px;
+	opacity: 0.9;
+	border: none;
+	text-decoration: none;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 8px;
+	padding-right: 8px; 
+
+}
+
+
+.footer {
+	padding-top: 10px;
+  padding-bottom: 10px;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #1C2331;
+   color: white;
+   text-align: center;
+}
+
+.footer a{
+	font-size: 16px;
+	color: #fff;
+	text-decoration: none;
+}
+
+.row{
+	background: rgba(0, 0, 0, 0.55);
+
+	display: flex;
+}
+
+.column{
+	flex: 50%;
+	padding: 10px;
+	height: 500px;
+	width: 50%;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
