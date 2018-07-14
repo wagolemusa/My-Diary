@@ -239,6 +239,8 @@ table{
 	width: 500px;
 }
 
+
+/* --------------Updating style-----------*/
 .book-update{
 cursor: pointer;
 background: rgba(0, 0, 0, 0.55);
@@ -271,4 +273,48 @@ padding-right: 50px;
 .book-container table{
 		width: 900px;
 
+}
+
+
+
+.row1{
+	background: rgba(0, 0, 0, 0.55);
+	color: #ffffff;
+	display: flex;
+}
+
+.column1{
+	flex: 50%;
+	padding: 10px;
+	width: 50%;
+	padding-top: 20px;
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+#pro{
+cursor: pointer;
+background: rgba(0, 0, 0, 0.55);
+padding: 12px;
+border: 12px;
+border-radius: 5px;
+margin-bottom: 10px;
+padding-left: 50px;	
+
+}
+#pro p{
+	font-size: 20px;
+
+}
+#pro b{
+	background-color: #0d47a1;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right:10px;
+}
+.postbtn{
+	background-color: #0d47a1;
+	color: #ffffff;
+	font-size: 20px;
 }
