@@ -16,7 +16,7 @@
 				<div class="account-content">
 					<a href="profile.html">Profile</a>
 					<a href="update_entry.html">Update Entry</a>
-					<a href="view_entry.html">View Entry</a>
+					<a href="add_entry.html">View Entry</a>
 					<a href="add_entry.html">Add Entry</a>
 					<a href="index.html">Logout</a>
 				</div>
@@ -89,9 +89,9 @@
 <div class="column">
 <div class="data">
 	<h1>Create Diary</h1>
-
+<form action="">
 <b>Title</b>
-<input type="text" placeholder="Title" name="title">
+<input type="text" placeholder="Title" name="title" required="">
 <br/>
 <b>Time</b>
 <input type="time" name="time">
@@ -100,9 +100,9 @@
 <br/>
 
 <b>Content Diary</b>
-<textarea id="entry" name="entry" placeholder="Diary Content" style="height: 200px; width: 590px;"></textarea><br/>
+<textarea id="entry" name="entry" placeholder="Diary Content" required="" style="height: 200px; width: 590px;"></textarea><br/>
 <button type="submit" class="postbtn" name="diary">Create Diary</button>
-
+</form>
 </div>
 </div>
 </div>
