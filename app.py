@@ -8,13 +8,13 @@ Diaries = [
 	'id':'1',
 	'title':'Code python',
 	'date':'20/08/2018',
-	'entries':'Next week I will start on my python project'
+	'entry':'Next week I will start on my python project'
 },
 {
 	'id':'2',
 	'title':'Zoom Meeting',
 	'date':'21/08/2018',
-	'entries':'I will have the Zoom meeting next week'
+	'entry':'I will have the Zoom meeting next week'
 }
 ]
 
@@ -36,7 +36,17 @@ def getEntry(id):
 	diary = [dics for dics in Diaries if (dics['id'] == id)]
 	return jsonify({'dics': diary})
 
-
+#post Entry
+@app.route('/api/v1/post_entry', methods=['POST'])
+def postEntry():
+	Data = {
+	'id': len(Diaries)+ 1,
+	'title':request.json['title'],
+	'date':request.json['date'],
+	'entry':request.json['entry']
+	}
+	Diaries.append(Data)
+	return jsonify(Data)
 
 if __name__ =='__main__':
 	app.run(debug=True)
