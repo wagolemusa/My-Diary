@@ -33,8 +33,8 @@ def get_entries():
 #Get Entry by ID
 @app.route('/api/V1/view_entry/<id>', methods=['GET'])
 def getEntry(id):
-
-
+	diary = [dics for dics in Diaries if (dics['id'] == id)]
+	return jsonify({'dics': diary})
 
 #post Entry
 @app.route('/api/v1/post_entry', methods=['POST'])
