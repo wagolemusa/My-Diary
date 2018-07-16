@@ -33,8 +33,8 @@ def get_entries():
 #Get Entry by ID
 @app.route('/api/V1/view_entry/<id>', methods=['GET'])
 def getEntry(id):
-	diary = [dics for dics in Diaries if (dics['id'] == id)]
-	return jsonify({'dics': diary})
+
+
 
 #post Entry
 @app.route('/api/v1/post_entry', methods=['POST'])
@@ -47,6 +47,18 @@ def postEntry():
 	}
 	Diaries.append(Data)
 	return jsonify(Data)
+
+#Update An Entry
+@app.route('/api/v1/update_entry/<id>', methods=['PUT'])
+def update_entry(id):
+	upd = [dics for dics in Diaries if (dics['id'] == id)]
+	if 'title' in request.json:
+		upd[0]['title'] = request.json['title']
+	if 'date' in request.json:
+		upd[0]['date'] = request.json['date']
+	if 'entry' in request.json:
+		upd[0]['entry'] = request.json['entry']
+	return jsonify({'dics':upd[0]})
 
 if __name__ =='__main__':
 	app.run(debug=True)
