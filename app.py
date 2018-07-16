@@ -60,5 +60,7 @@ def update_entry(id):
 		upd[0]['entry'] = request.json['entry']
 	return jsonify({'dics':upd[0]})
 
+
+
 if __name__ =='__main__':
 	app.run(debug=True)
