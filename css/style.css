@@ -245,14 +245,23 @@ padding: 12px;
 
 
 .book{
-	cursor: pointer;
+cursor: pointer;
 background: rgba(0, 0, 0, 0.55);
-
 padding: 12px;
 border: 12px;
 border: 1px solid rgba(255, 255, 255, 0.55);
 border-radius: 5px;
 margin-bottom: 10px;
+}
+
+.book:hover{
+	background:rgba(63, 81, 181, 0.7);
+
+}
+.book-update:hover{
+	background:rgba(63, 81, 181, 0.7);
+
+
 }
 td, th{
 	padding: 8px;
@@ -340,4 +349,39 @@ padding-left: 50px;
 	background-color: #0d47a1;
 	color: #ffffff;
 	font-size: 20px;
+}
+
+th{
+	font-size: 24px;
+	width: 200px;
+	padding-left: 30px;
+
+}
+td{
+		padding-left: 30px;
+			width: 200px;
+
+
+}
+
+.book1{
+	color: #ffffff;
+cursor: pointer;
+background:rgba(63, 81, 181, 0.7);
+padding: 12px;
+border: 12px;
+border: 1px solid rgba(255, 255, 255, 0.55);
+border-radius: 5px;
+margin-bottom: 10px;
+}
+.book2{
+	color: #ffffff;
+cursor: pointer;
+background:rgba(63, 81, 181, 0.7);
+padding: 12px;
+border: 12px;
+padding-left: 35px;
+border: 1px solid rgba(255, 255, 255, 0.55);
+border-radius: 5px;
+margin-bottom: 10px;
 }
