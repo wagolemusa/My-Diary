@@ -19,24 +19,34 @@ Diaries = [
 ]
 
 
-#Home page
+Users = []
+
+user = {'user_id' : 1, 'full_name' :'refuge', 'username' : 'wise', 'email' : 'wise@gmail.com', 'password' : 'wise12', 'confirm_password' : 'wise12'}
+Users.append(user)
+
+"""Home page"""
 @app.route('/')
 def home():
 	return jsonify({"message":'Welcome To my Diary'})
 
 
-#View all Diary entries
+""" get all users"""
+@app.route('/api/v1/get_all_users', methods=['GET'])
+def get_all_users():
+	return jsonify({'reg': Users})
+
+"""View all Diary entries"""
 @app.route('/api/v1/get_entries', methods=['GET'])
 def get_entries():
 	return jsonify({'dic':Diaries})
 
-#Get Entry by ID
+"""Get Entry by ID"""
 @app.route('/api/V1/view_entry/<id>', methods=['GET'])
 def getEntry(id):
 	diary = [dics for dics in Diaries if (dics['id'] == id)]
 	return jsonify({'dics': diary})
 
-#post Entry
+"""post Entry"""
 @app.route('/api/v1/post_entry', methods=['POST'])
 def postEntry():
 	Data = {
@@ -48,7 +58,7 @@ def postEntry():
 	Diaries.append(Data)
 	return jsonify(Data)
 
-#Update An Entry
+"""Update An Entry"""
 @app.route('/api/v1/update_entry/<id>', methods=['PUT'])
 def update_entry(id):
 	upd = [dics for dics in Diaries if (dics['id'] == id)]
