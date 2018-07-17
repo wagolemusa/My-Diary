@@ -19,8 +19,8 @@ Diaries = [
 ]
 
 
-Users = []
 
+Users = []
 user = {'user_id' : 1, 'full_name' :'refuge', 'username' : 'wise', 'email' : 'wise@gmail.com', 'password' : 'wise12', 'confirm_password' : 'wise12'}
 Users.append(user)
 
@@ -29,6 +29,19 @@ Users.append(user)
 def home():
 	return jsonify({"message":'Welcome To my Diary'})
 
+"""Register User"""
+@app.route('/api/v1/auth/regester', methods=['POST'])
+def register():
+	Register = {
+	'user_id':len(Users) + 1,
+	'full_name':request.json['full_name'],
+	'username':request.json['username'],
+	'email': request.json['email'],
+	'password':request.json['password'],
+	'confirm_password':request.json['confirm_password']
+	}
+	Users.append(Register)
+	return jsonify(Register)
 
 """ get all users"""
 @app.route('/api/v1/get_all_users', methods=['GET'])

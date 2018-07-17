@@ -19,6 +19,8 @@ class EntriesTestCase(unittest.TestCase):
 		response = tester.get('api/V1/view_entry/1')
 		self.assertEqual(response.status_code, 200)
 
+		
+
 		""" Test post Entry"""
 	#def post_entery(self, title, date, entry):
 	#	return self.app.post(
