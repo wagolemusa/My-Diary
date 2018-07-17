@@ -12,8 +12,12 @@ class EntriesTestCase(unittest.TestCase):
 		tester = app.test_client(self)
 		response = tester.get('/api/v1/get_entries')
 		self.assertEqual(response.status_code, 200)
-		#response = self.client().get('/api/v1/get_entries')
-		#self.assertEqual(response.status, 200)
+
+	""" Test one Entry"""
+	def test_one_entry(self):
+		tester = app.test_client(self)
+		response = tester.get('api/V1/view_entry/1')
+		self.assertEqual(response.status_code, 200)
 
 
 
