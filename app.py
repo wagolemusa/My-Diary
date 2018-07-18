@@ -7,22 +7,7 @@ from functools import wraps
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'REFUGE'
 
-Diaries = [
-{
-	'id':'1',
-	'title':'Code python',
-	'date':'20/08/2018',
-	'entry':'Next week I will start on my python project'
-},
-{
-	'id':'2',
-	'title':'Zoom Meeting',
-	'date':'21/08/2018',
-	'entry':'I will have the Zoom meeting next week'
-}
-]
-
-
+Diaries = {}
 
 Users = {}
 
@@ -72,21 +57,20 @@ def get_entries():
 	return jsonify({'dic':Diaries})
 
 """Get Entry by ID"""
-@app.route('/api/V1/view_entry/<id>', methods=['GET'])
+@app.route('/api/V1/view_entry/<int:id>', methods=['GET'])
 def getEntry(id):
-	diary = [dics for dics in Diaries if (dics['id'] == id)]
-	return jsonify({'dics': diary})
+	return jsonify(Diaries[id])
 
 """post Entry"""
 @app.route('/api/v1/post_entry', methods=['POST'])
 def postEntry():
 	Data = {
-	'id': len(Diaries)+ 1,
-	'title':request.json['title'],
-	'date':request.json['date'],
-	'entry':request.json['entry']
-	}
-	Diaries.append(Data)
+	len(Diaries)+ 1:{
+	'title':request.get_json()['title'],
+	'date':request.get_json()['date'],
+	'entry':request.get_json()['entry']
+	}}
+	Diaries.update(Data)
 	return jsonify(Diaries)
 
 """Update An Entry"""
