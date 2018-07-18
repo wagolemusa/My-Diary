@@ -29,7 +29,7 @@ def home():
 	return jsonify({"message":'Welcome To my Diary'})
 
 """Register User"""
-@app.route('/api/v1/auth/regester', methods=['POST'])
+@app.route('/api/v1/auth/register', methods=['POST'])
 def register():
 
 	Register = {request.get_json()['username']:

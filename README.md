@@ -9,7 +9,7 @@ Clone the repository
 ```sh
 git@github.com:wagolemusa/My-Diary.git
 ```
-Create the virtualn enviroment and install dependencies
+Create the virtual environment and install dependencies
 ```sh
 cd My-Diary
 ```
@@ -21,6 +21,16 @@ Activate the virtual environment
 ```sh
 source /venv/bin/activate
 ```
+Install dependencies
+
 ```sh
 pip install install -r requirements.txt
 ```
+### Run the applicattion
+
+```sh
+python app.py
+```
+### APIs Endpoints
+
+**`POST /api/v1/auth/register`** *Register*
