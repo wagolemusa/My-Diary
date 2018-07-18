@@ -11,6 +11,18 @@ Diaries = {}
 
 Users = {}
 
+def login_required(f):
+	@wraps(f)
+	def decorated(*args, **kwargs):
+		if request.args.get('token')=='':
+			return jsonify({"message": 'You need to first login'})
+		try:
+			data=jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+		except:
+			return jsonify({"Alert": 'please login again'})
+		return f(*args, **kwargs)
+	return decorated
+
 """Home page"""
 @app.route('/')
 def home():
@@ -48,21 +60,25 @@ def login():
 
 """ get all users"""
 @app.route('/api/v1/get_all_users', methods=['GET'])
+#@login_required
 def get_all_users():
 	return jsonify({'reg': Users})
 
 """View all Diary entries"""
 @app.route('/api/v1/get_entries', methods=['GET'])
+#@login_required
 def get_entries():
 	return jsonify({'dic':Diaries})
 
 """Get Entry by ID"""
 @app.route('/api/V1/view_entry/<int:id>', methods=['GET'])
+#@login_required
 def getEntry(id):
 	return jsonify(Diaries[id])
 
 """post Entry"""
 @app.route('/api/v1/post_entry', methods=['POST'])
+#@login_required
 def postEntry():
 	Data = {
 	len(Diaries)+ 1:{
@@ -88,6 +104,7 @@ def update_entry(id):
 
 """delete entry"""
 @app.route('/api/v1/delete_entry/<int:id>', methods=['DELETE'])
+#@login_required
 def delete(id):
 	del Diaries[id]
 	return jsonify({"message": "Succesfuly Deleted"})
