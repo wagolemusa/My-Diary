@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/wagolemusa/My-Diary.svg?branch=master)](https://travis-ci.org/wagolemusa/My-Diary)
+![GitHub tag](https://img.shields.io/github/tag/expressjs/express.svg)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg)
+![Jenkins tests](https://img.shields.io/jenkins/t/https/jenkins.qa.ubuntu.com/view/Precise/view/All%20Precise/job/precise-desktop-amd64_default.svg)
 # My-Diary
 MyDiary is an online journal where users can pen down their thoughts and feelings. 
 
@@ -48,3 +51,8 @@ python app.py
 **`PUT /api/v1/update_entry/<id>/`** *Update an Entry*
 
 **`DELETE /api/v1/delete_entry/<int:id>`** *Delete an Entry*
+
+```sh
+Heroku app
+```
+https://mydiaryandela.herokuapp.com/
