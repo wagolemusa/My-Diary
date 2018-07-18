@@ -1,7 +1,11 @@
 from flask import Flask,jsonify,request, make_response
 import json
+import jwt
+import datetime
+from functools import wraps
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'REFUGE'
 
 Diaries = [
 {
@@ -20,9 +24,7 @@ Diaries = [
 
 
 
-Users = []
-user = {'user_id' : 1, 'full_name' :'refuge', 'username' : 'wise', 'email' : 'wise@gmail.com', 'password' : 'wise12', 'confirm_password' : 'wise12'}
-Users.append(user)
+Users = {}
 
 """Home page"""
 @app.route('/')
@@ -32,16 +34,32 @@ def home():
 """Register User"""
 @app.route('/api/v1/auth/regester', methods=['POST'])
 def register():
-	Register = {
+
+	Register = {request.get_json()['username']:
+ {
 	'user_id':len(Users) + 1,
-	'full_name':request.json['full_name'],
-	'username':request.json['username'],
-	'email': request.json['email'],
-	'password':request.json['password'],
-	'confirm_password':request.json['confirm_password']
-	}
-	Users.append(Register)
-	return jsonify(Register)
+	'full_name':request.get_json()['full_name'],
+	'email': request.get_json()['email'],
+	'password':request.get_json()['password'],
+	'confirm_password':request.get_json()['confirm_password']
+	}}
+	Users.update(Register)
+	return jsonify(Users)
+
+
+"""Login user"""
+@app.route('/api/v1/auth/login', methods=['GET', 'POST'])
+def login():
+	username = request.get_json()['username']
+	password = request.get_json()['password']
+	if username in Users:
+		if password == Users[username]['password']:
+			token = jwt.encode({"username":username, "password":password, "exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=20)},app.config['SECRET_KEY'])
+			return jsonify({"token":token.decode('utf-8')})
+		else:
+			return jsonify({"message":"Invalid credentials"})
+	else:
+		return jsonify({"message":"Invalid credentials"})
 
 """ get all users"""
 @app.route('/api/v1/get_all_users', methods=['GET'])
@@ -69,7 +87,7 @@ def postEntry():
 	'entry':request.json['entry']
 	}
 	Diaries.append(Data)
-	return jsonify(Data)
+	return jsonify(Diaries)
 
 """Update An Entry"""
 @app.route('/api/v1/update_entry/<id>', methods=['PUT'])

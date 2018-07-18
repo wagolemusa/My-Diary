@@ -19,6 +19,20 @@ class UserTestCase(unittest.TestCase):
 				dict(full_name="refuge", username="wise", email="musa@gmail.com", password="wise12", confirm_password="wise12")),
 			content_type="application/json")
 		self.assertEqual(response.status_code, 200)
+
+	"""Login User"""
+	def test_user_login(self):
+		tester = app.test_client(self)
+		response = tester.post(
+			'api/v1/auth/register', data=json.dumps(
+				dict(full_name="refuge", username='wise', email='wise@gmail.com', password='wise12')),
+			content_type="application/json")
+		response = tester.post('/api/v1/auth/login', data=json.dumps(
+			dict(username="wise", password="wise12")),
+			content_type="application/json")
+		self.assertEqual(response.status_code, 200)
+
+
 			
 
 if __name__ =='__main__':
