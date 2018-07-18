@@ -34,3 +34,8 @@ python app.py
 ### APIs Endpoints
 
 **`POST /api/v1/auth/register`** *Register*
+**`POST /api/v1/auth/login`**    *Login*
+**`GET  /api/v1/get_all_users`**  *All Users*
+**`POST /api/v1/post_entry`** *Post Entry*
+**`GET  /api/V1/view_entry/<int:id>`** *Get only one entry*
+**`GET /api/v1/get_entries`** *Get all Entries*
