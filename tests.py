@@ -19,7 +19,10 @@ class EntriesTestCase(unittest.TestCase):
 		response = tester.get('api/V1/view_entry/1')
 		self.assertEqual(response.status_code, 200)
 
-		
+	def delete_all_entry(self):
+		tester = app.test_client(self)
+		response = tester.delete('api/v1/delete_entry/2')
+		self.assertEqual(response.status_code, 200)
 
 		""" Test post Entry"""
 	#def post_entery(self, title, date, entry):

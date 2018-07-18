@@ -86,6 +86,12 @@ def update_entry(id):
 	return jsonify({'dics':upd[0]})
 
 
+"""delete entry"""
+@app.route('/api/v1/delete_entry/<int:id>', methods=['DELETE'])
+def delete(id):
+	del Diaries[id]
+	return jsonify({"message": "Succesfuly Deleted"})
+
 
 if __name__ =='__main__':
 	app.run(debug=True)
