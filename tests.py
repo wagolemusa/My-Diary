@@ -1,7 +1,8 @@
-import sys
+from app import app
 import unittest
 import os
 import json
+
 class EntriesTestCase(unittest.TestCase):
 
 

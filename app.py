@@ -26,7 +26,7 @@ def login_required(f):
 	return decorated
 
 """Home page"""
-@app.route('')
+@app.route('/')
 def home():
 	return jsonify({"message":'Welcome To my Diary'})
 
