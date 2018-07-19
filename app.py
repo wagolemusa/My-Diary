@@ -5,11 +5,13 @@ import datetime
 from functools import wraps
 
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = 'REFUGE'
 
 Diaries = {}
 
 Users = {}
+
 
 def login_required(f):
 	@wraps(f)
