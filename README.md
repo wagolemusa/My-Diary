@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/wagolemusa/My-Diary.svg?branch=master)](https://travis-ci.org/wagolemusa/My-Diary)
-![GitHub tag](https://img.shields.io/github/tag/expressjs/express.svg)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/e29fcbc2317c1e18ebe5/maintainability)](https://codeclimate.com/github/wagolemusa/My-Diary/maintainability)                               
+
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg)
 ![Jenkins tests](https://img.shields.io/jenkins/t/https/jenkins.qa.ubuntu.com/view/Precise/view/All%20Precise/job/precise-desktop-amd64_default.svg)
 # My-Diary
