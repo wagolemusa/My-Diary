@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/wagolemusa/My-Diary.svg?branch=master)](https://travis-ci.org/wagolemusa/My-Diary)
+[![Build Status](https://travis-ci.org/wagolemusa/My-Diary.svg?branch=Challenge-2)](https://travis-ci.org/wagolemusa/My-Diary)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/e29fcbc2317c1e18ebe5/maintainability)](https://codeclimate.com/github/wagolemusa/My-Diary/maintainability)                               
 
