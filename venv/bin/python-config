@@ -1,4 +1,4 @@
-#!/home/refuge/code/My-Diary/venv/bin/python
+#!/home/refuge/code/MyDiary/venv/bin/python
 
 import sys
 import getopt
