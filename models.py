@@ -21,7 +21,7 @@ try:
 	dbcon.commit()
 	#print ('Table is already exist')
 except:
-	print ('Cursor connection failed')
+	print ('Table is already exist')
 
 
 try:
@@ -37,5 +37,5 @@ try:
 		);''')
 	dbcon.commit()
 except:
-		print ('Cursor connection failed')
+		print ('Table is already exist')
 
