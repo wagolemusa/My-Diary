@@ -1,8 +1,41 @@
 import psycopg2
+#import datetime
 
-def dbcontaction():
-	dbcon = 'dbname=challenge3 user=postgres password=refuge host=localhost'
-	try:
-		return psycopg2.connect(dbcon)
-	except:
-		print("Database connection failed")
+dbcon = psycopg2.connect(dbname='challenge3', user='postgres', password='refuge', host='localhost')
+	#try:
+	#	return psycopg2.connect(dbcon)
+	#except:
+		#print("Database connection failed")
+
+try:
+	dbcur = dbcon.cursor()
+	dbcur.execute('''CREATE TABLE users(
+		user_id 	   SERIAL PRIMARY KEY,
+		full_name    TEXT NOT NULL,
+		username     TEXT NOT NULL,
+		email        TEXT NOT NULL,
+		password     TEXT NOT NULL,
+		created_at   TIMESTAMP NOT NULL,
+		modified_at  TIMESTAMP NOT NULL
+		);''')
+	dbcon.commit()
+	#print ('Table is already exist')
+except:
+	print ('Cursor connection failed')
+
+
+try:
+	dbcur = dbcon.cursor()
+	dbcur.execute('''CREATE TABLE entries(
+		id    SERIAL PRIMARY KEY,
+		user_id   INT    NOT NULL,
+		title     TEXT   NOT NULL,
+		dates     TEXT   NOT NULL,
+		entries   TEXT   NOT NULL,
+		created_at   TIMESTAMP NOT NULL,
+		modified_at  TIMESTAMP NOT NULL
+		);''')
+	dbcon.commit()
+except:
+		print ('Cursor connection failed')
+
