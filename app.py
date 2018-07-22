@@ -1,9 +1,12 @@
 from flask import Flask, jsonify, request
-from app import app
 from models import *
-import datetime
 
-#today = str(datetime.datetime.today())
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'refuge'
+
+
+
 @app.route('/')
 def home():
 	return "Start Now Create Your Diaries"
@@ -12,7 +15,7 @@ def home():
 
 @app.route('/api/v1/auth/signup', methods=['POST'])
 def register():
-	dbcon.commit()
+	#dbcon.commit()
 	if request.method == 'POST':
 		full_name = request.get_json()['full_name']
 		username  = request.get_json()['username']
@@ -20,5 +23,9 @@ def register():
 		password  = request.get_json()['password']
 		dbcur = dbcon.cursor()
 		dbcur.execute("INSERT INTO users(full_name, username, email, password) VALUES(%s, %s, %s, %s)",(full_name, username, email, password))
-		dbcon.close()
+		dbcon.commit()
 	return jsonify({"message": 'Succefuly Registerd'})
+
+
+if __name__ == '__main__':
+	app.run()
