@@ -12,10 +12,10 @@ def home():
 	return "Start Now Create Your Diaries"
 
 
-
-@app.route('/api/v1/auth/signup', methods=['POST'])
+"""User Register"""
+@app.route('/api/v2/auth/signup', methods=['POST'])
 def register():
-	#dbcon.commit()
+	dbcon.commit()
 	if request.method == 'POST':
 		full_name = request.get_json()['full_name']
 		username  = request.get_json()['username']
@@ -24,8 +24,29 @@ def register():
 		dbcur = dbcon.cursor()
 		dbcur.execute("INSERT INTO users(full_name, username, email, password) VALUES(%s, %s, %s, %s)",(full_name, username, email, password))
 		dbcon.commit()
-	return jsonify({"message": 'Succefuly Registerd'})
+	return jsonify({"message": 'Succefuly Registerd'}), 200
 
+""" User Login"""
+@app.route('/api/v2/auth/signin', methods=['GET', 'POST'])
+def signin():
+	if request.method == 'POST':
+
+		username = request.get_json()['username']
+		password = request.get_json()['password']
+		dbcur = dbcon.cursor()
+		result = dbcur.execute("SELECT * FROM users WHERE username = %s", [username])
+		#if result > 1:
+		data = dbcur.fetchone()
+		#password = data['password']
+		dbcon.close()
+
+		#else:
+	return jsonify({"message": 'Username not found'})
+	return jsonify({"message": 'Welcome to my Diary'})
+
+
+
+ 
 
 if __name__ == '__main__':
 	app.run()
