@@ -14,7 +14,8 @@ try:
 		full_name    TEXT NOT NULL,
 		username     TEXT NOT NULL,
 		email        TEXT NOT NULL,
-		password     TEXT NOT NULL
+		password     TEXT NOT NULL,
+		created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 		);''')
 	dbcon.commit()
 	#print ('Table is already exist')
@@ -26,12 +27,13 @@ try:
 	dbcur = dbcon.cursor()
 	dbcur.execute('''CREATE TABLE entries(
 		id    SERIAL PRIMARY KEY,
-		user_id   INT    NOT NULL,
+		user_id   INT,
 		title     TEXT   NOT NULL,
 		dates     TEXT   NOT NULL,
 		entries   TEXT   NOT NULL,
-		created_at   TIMESTAMP NOT NULL,
-		modified_at  TIMESTAMP NOT NULL
+		created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+
+
 		);''')
 	dbcon.commit()
 except:

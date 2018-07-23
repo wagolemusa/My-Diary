@@ -15,7 +15,7 @@ def home():
 """User Register"""
 @app.route('/api/v2/auth/signup', methods=['POST'])
 def register():
-	dbcon.commit()
+#@dbcon.commit()
 	if request.method == 'POST':
 		full_name = request.get_json()['full_name']
 		username  = request.get_json()['username']
@@ -44,6 +44,17 @@ def signin():
 	return jsonify({"message": 'Username not found'})
 	return jsonify({"message": 'Welcome to my Diary'})
 
+@app.route('/api/v2/entry', methods=['POST'])
+def entry():
+	dbcon.commit()
+	if request.method == 'POST':
+		title = request.get_json()['title']
+		dates = request.get_json()['dates']
+		entries = request.get_json()['entries']
+		dbcur = dbcon.cursor()
+		dbcur.execute("INSERT INTO entries(title, dates, entries) VALUES(%s, %s, %s )",(title, dates, entries))
+		dbcon.commit()
+	return jsonify({"message": 'Successfuly Posted Entries'})
 
 
  

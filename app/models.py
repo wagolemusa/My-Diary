@@ -14,7 +14,7 @@ try:
 		full_name    TEXT NOT NULL,
 		username     TEXT NOT NULL,
 		email        TEXT NOT NULL,
-		password     TEXT NOT NULL,
+		password     TEXT NOT NULL
 		);''')
 	dbcon.commit()
 	#print ('Table is already exist')
