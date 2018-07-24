@@ -50,7 +50,7 @@ def signin():
 	return jsonify({"message": 'Welcome to my Diary'})
 
 @app.route('/api/v2/entry', methods=['POST'])
-def entry():
+def post_entry():
 	if request.method == 'POST':
 		title = request.get_json()['title']
 		dates = request.get_json()['dates']
@@ -59,12 +59,19 @@ def entry():
 		dbcon.commit()
 	return jsonify({"message": 'Successfuly Posted Entries'})
 
+
 @app.route('/api/v2/get_entries', methods=['GET'])
 def get_entries():
 	dbcur.execute("SELECT * FROM entries")
 	entries  = dbcur.fetchall()
-	dbcur.close()
 	return jsonify(entries)
+
+@app.route('/api/v2/view_an_entry/<int:id>', methods=['GET'])
+def view_an_entry(id):
+	dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
+	entries = dbcur.fetchone()
+	return jsonify(entries)
+
 
 
 
