@@ -73,6 +73,21 @@ def view_an_entry(id):
 	return jsonify(entries)
 
 
+@app.route('/api/v2/update_an_entry/<int:id>', methods=['PUT'])
+def update_entry(id):
+	#dbcur = dbcon.cursor()
+	dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
+	entries = dbcur.fetchone()
+	if request.method == 'PUT':
+		title = request.get_json()['title']
+		dates = request.get_json()['dates']
+		entries = request.get_json()['entries']
+
+		dbcur.execute("UPDATE entries SET title=%s, dates=%s, entries=%s WHERE id=%s",(title, dates, entries, id))
+		dbcon.commit()
+	return jsonify({"massege": "Entries Succesfuly Updated"})
+
+
 
 
 
