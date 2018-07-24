@@ -59,7 +59,12 @@ def entry():
 		dbcon.commit()
 	return jsonify({"message": 'Successfuly Posted Entries'})
 
-
+@app.route('/api/v2/get_entries', methods=['GET'])
+def get_entries():
+	dbcur.execute("SELECT * FROM entries")
+	entries  = dbcur.fetchall()
+	dbcur.close()
+	return jsonify(entries)
 
 
 
