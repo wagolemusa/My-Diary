@@ -3,22 +3,32 @@ from models import *
 import psycopg2
 from passlib.hash import sha256_crypt
 import jwt
+from functools import wraps
 import datetime
 app = Flask(__name__)
 
-
 app.config['SECRET_KEY'] = 'refuge'
-
 dbcon = psycopg2.connect(dbname='mydiary', user='postgres', password='refuge', host='localhost')
-
 dbcur = dbcon.cursor()
 
+def required_user(g):
+	@wraps(g)
+	def decorated(*args, **kwargs):
+		if request.args.get('token')=='':
+			return jsonify({"message": 'You need to first login'})
+		if not token:
+			return jsonify({'message': 'Missing user token!'})
+		try:
+			data=jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+		except:
+			return jsonify({'message': 'Invalid token'})
+		return g(*args, **kwargs)
+	return decorated
 
 
 @app.route('/')
 def home():
 	return jsonify({"message": 'Welcome To Home Page'})
-
 
 """User Register"""
 @app.route('/api/v2/auth/signup', methods=['POST'])
@@ -48,7 +58,8 @@ def signin():
 	return jsonify("Method not allowed")
 
 """Post Entries"""
-@app.route('/api/v2/entry', methods=['POST'])
+@app.route('/api/v2/entries', methods=['POST'])
+@required_user
 def post_entry():
 	if request.method == 'POST':
 		title = request.get_json()['title']
@@ -59,21 +70,21 @@ def post_entry():
 	return jsonify({"message": 'Successfuly Posted Entries'})
 
 """ Get all Entries"""
-@app.route('/api/v2/get_entries', methods=['GET'])
+@app.route('/api/v2/entries', methods=['GET'])
 def get_entries():
 	dbcur.execute("SELECT * FROM entries")
 	data  = dbcur.fetchall()
 	return jsonify(data)
 
 """View one entry"""
-@app.route('/api/v2/view_an_entry/<int:id>', methods=['GET'])
+@app.route('/api/v2/entries/<int:id>', methods=['GET'])
 def view_an_entry(id):
 	dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
 	data = dbcur.fetchone()
 	return jsonify(data)
 
 """Update Entries"""
-@app.route('/api/v2/update_an_entry/<int:id>', methods=['PUT'])
+@app.route('/api/v2/entries/<int:id>', methods=['PUT'])
 def update_entry(id):
 	dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
 	entries = dbcur.fetchone()
