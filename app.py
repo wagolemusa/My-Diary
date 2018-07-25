@@ -44,7 +44,7 @@ def signin():
 		if data is not None and sha256_crypt.verify(password, data[4]):
 			token = jwt.encode({"username":username, "password":password, "exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=20)},app.config['SECRET_KEY'])
 			return jsonify({"token":token.decode('utf-8')})
-		return jsonify("Invaild Creditaions")
+		return jsonify("Invaild Credentials")
 	return jsonify("Method not allowed")
 
 """Post Entries"""
@@ -62,15 +62,15 @@ def post_entry():
 @app.route('/api/v2/get_entries', methods=['GET'])
 def get_entries():
 	dbcur.execute("SELECT * FROM entries")
-	entries  = dbcur.fetchall()
-	return jsonify(entries)
+	data  = dbcur.fetchall()
+	return jsonify(data)
 
 """View one entry"""
 @app.route('/api/v2/view_an_entry/<int:id>', methods=['GET'])
 def view_an_entry(id):
 	dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
-	entries = dbcur.fetchone()
-	return jsonify(entries)
+	data = dbcur.fetchone()
+	return jsonify(data)
 
 """Update Entries"""
 @app.route('/api/v2/update_an_entry/<int:id>', methods=['PUT'])
