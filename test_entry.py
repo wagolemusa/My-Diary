@@ -31,7 +31,11 @@ class UserTestCase(unittest.TestCase):
     response = tester.get('/api/v2/view_an_entry/2',content_type="application/json")
     self.assertEqual(response.status_code, 200)
 
-    
+  def test_update_entries(self):
+    tester = app.test_client(self)
+    response = tester.put('/api/v2/update_an_entry/2', content_type="application/json")
+    data=dict(title="python", dates="04/08/2018", entries="I will have to code")
+    self.assertIn(b'Entries Succesfuly Updated', response.data)
 
 
 if __name__ == '__main__':
