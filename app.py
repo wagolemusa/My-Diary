@@ -30,7 +30,7 @@ def register():
 		password  = sha256_crypt.encrypt(str(request.get_json()['password']))
 		dbcur.execute("INSERT INTO users(full_name, username, email, password) VALUES(%s, %s, %s, %s)",(full_name, username, email, password))
 		dbcon.commit()
-	return jsonify({"message": 'Succefuly Registerd'}), 200
+	return jsonify({"message": 'Successfully Registered'}), 200
 
 """ User Login"""
 @app.route('/api/v2/auth/login', methods=['GET', 'POST'])
@@ -83,7 +83,7 @@ def update_entry(id):
 		entries = request.get_json()['entries']
 		dbcur.execute("UPDATE entries SET title=%s, dates=%s, entries=%s WHERE id=%s",(title, dates, entries, id))
 		dbcon.commit()
-	return jsonify({"massege": "Entries Succesfuly Updated"})
+	return jsonify({"massege": "Entries Successfuly Updated"})
 
 if __name__ == '__main__':
 	app.run()

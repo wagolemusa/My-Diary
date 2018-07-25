@@ -4,7 +4,7 @@ import json
 import os
 
 
-class UserTestCase(unittest.TestCase):
+class EntriesTestCase(unittest.TestCase):
 
     #Test home end point
   def test_home_endpoint(self):
@@ -35,7 +35,7 @@ class UserTestCase(unittest.TestCase):
     tester = app.test_client(self)
     response = tester.put('/api/v2/update_an_entry/2', content_type="application/json")
     data=dict(title="python", dates="04/08/2018", entries="I will have to code")
-    self.assertIn(b'Entries Succesfuly Updated', response.data)
+    self.assertIn(b'Entries Successfuly Updated', response.data)
 
 
 if __name__ == '__main__':
