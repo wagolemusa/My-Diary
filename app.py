@@ -17,7 +17,7 @@ dbcur = dbcon.cursor()
 
 @app.route('/')
 def home():
-	return "Start Now Create Your Diaries"
+	return jsonify({"message": 'Welcome To Home Page'})
 
 
 """User Register"""
@@ -33,15 +33,15 @@ def register():
 	return jsonify({"message": 'Succefuly Registerd'}), 200
 
 """ User Login"""
-@app.route('/api/v2/auth/signin', methods=['GET', 'POST'])
+@app.route('/api/v2/auth/login', methods=['GET', 'POST'])
 def signin():
 	if request.method == 'POST':
 		username = request.get_json()['username']
 		password = request.get_json()['password']
 		dbcur = dbcon.cursor()
-		result = dbcur.execute("SELECT * FROM users WHERE username = %s;", [username])
-		data=result.fetchone()
-		if data is not None and password == data['password']:
+		dbcur.execute("SELECT * FROM users WHERE username = %s;", [username])
+		data = dbcur.fetchone()
+		if data is not None and sha256_crypt.verify(password, data[4]):
 			token = jwt.encode({"username":username, "password":password, "exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=20)},app.config['SECRET_KEY'])
 			return jsonify({"token":token.decode('utf-8')})
 		return jsonify("Invaild Creditaions")
