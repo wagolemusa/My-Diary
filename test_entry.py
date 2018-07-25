@@ -26,6 +26,13 @@ class UserTestCase(unittest.TestCase):
     response = tester.get('/api/v2/get_entries',content_type="application/json")
     self.assertEqual(response.status_code, 200)
 
+  def test_show_an_entry(self):
+    tester = app.test_client(self)
+    response = tester.get('/api/v2/view_an_entry/2',content_type="application/json")
+    self.assertEqual(response.status_code, 200)
+
+    
+
 
 if __name__ == '__main__':
   unittest.main()
