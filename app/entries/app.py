@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, Blueprint
+from flask_restful import Resource
 from models import *
 import psycopg2
 from passlib.hash import sha256_crypt
@@ -26,41 +27,38 @@ def required_user(g):
 	return decorated	
 
 """Post Entries"""
-@diary.route('/api/v2/entries', methods=['POST'])
-#@required_user
-def post_entry():
-	if request.method == 'POST':
-		title = request.get_json()['title']
-		dates = request.get_json()['dates']
-		entries = request.get_json()['entries']
-		dbcur.execute("INSERT INTO entries(title, dates, entries) VALUES(%s, %s, %s )",(title, dates, entries))
-		dbcon.commit()
-	return jsonify({"message": 'Successfuly Posted Entries'})
+class Entry(Resource):
+	def post(self):
+		if request.method == 'POST':
+			title = request.get_json()['title']
+			dates = request.get_json()['dates']
+			entries = request.get_json()['entries']
+			dbcur.execute("INSERT INTO entries(title, dates, entries) VALUES(%s, %s, %s )",(title, dates, entries))
+			dbcon.commit()
+		return jsonify({"message": 'Successfuly Posted Entries'})
 
-""" Get all Entries"""
-@diary.route('/api/v2/entries', methods=['GET'])
-def get_entries():
-	dbcur.execute("SELECT * FROM entries")
-	data  = dbcur.fetchall()
-	return jsonify(data)
+		""" Get all Entries"""
+	def get(selt):
+		if request.method == 'GET':
+			dbcur.execute("SELECT * FROM entries")
+			data  = dbcur.fetchall()
+		return jsonify(data)
 
-"""View one entry"""
-@diary.route('/api/v2/entries/<int:id>', methods=['GET'])
-def view_an_entry(id):
-	dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
-	data = dbcur.fetchone()
-	return jsonify(data)
+		"""View one entry"""
+	def get(self):
+		dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
+		data = dbcur.fetchone()
+		return jsonify(data)
 
-"""Update Entries"""
-@diary.route('/api/v2/entries/<int:id>', methods=['PUT'])
-def update_entry(id):
-	dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
-	entries = dbcur.fetchone()
-	if request.method == 'PUT':
-		title = request.get_json()['title']
-		dates = request.get_json()['dates']
-		entries = request.get_json()['entries']
-		dbcur.execute("UPDATE entries SET title=%s, dates=%s, entries=%s WHERE id=%s",(title, dates, entries, id))
-		dbcon.commit()
-	return jsonify({"massege": "Entries Successfuly Updated"})
+	"""Update Entries"""
+	def put(self):
+		dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
+		entries = dbcur.fetchone()
+		if request.method == 'PUT':
+			title = request.get_json()['title']
+			dates = request.get_json()['dates']
+			entries = request.get_json()['entries']
+			dbcur.execute("UPDATE entries SET title=%s, dates=%s, entries=%s WHERE id=%s",(title, dates, entries, id))
+			dbcon.commit()
+		return jsonify({"massege": "Entries Successfuly Updated"})
 
