@@ -38,7 +38,8 @@ class Entry(Resource):
 		return jsonify({"message": 'Successfuly Posted Entries'})
 
 		""" Get all Entries"""
-	def get(selt):
+	
+	def get(self):
 		if request.method == 'GET':
 			dbcur.execute("SELECT * FROM entries")
 			data  = dbcur.fetchall()
