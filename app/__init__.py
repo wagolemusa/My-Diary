@@ -1,14 +1,18 @@
-from flask import Flask, jsonify, request
-from entries.app import diary 
-from route import endpoint
-from users.routes import users
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'refuge'
-
-app.register_blueprint(diary)
-app.register_blueprint(endpoint)
-app.register_blueprint(users)
+from flask import Flask, jsonify, request, Blueprint
+from flask_restful import Api
+from entries.app import Entry
+from entries.app import EntryId
+from entries.app import  Home
+from users.routes import Users
+from users.routes import Login
 
 
-#Load the views
-#from app import views
+api_bp = Blueprint('api', __name__)
+api = Api(api_bp)
+
+api.add_resource(Home, '/')
+api.add_resource(Entry, '/v2/entries')
+api.add_resource(Users,  '/v2/auth/signup')
+api.add_resource(Login,  '/v2/auth/login')
+api.add_resource(EntryId, '/v2/entries/<int:id>')
+

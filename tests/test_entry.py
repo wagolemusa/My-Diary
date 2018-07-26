@@ -1,7 +1,8 @@
-from app import app 
+from flask import *
 import unittest 
 import json
-import os
+import os,sys
+sys.path.insert(0, os.path.abspath(".."))
 
 
 class EntriesTestCase(unittest.TestCase):
