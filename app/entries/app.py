@@ -20,14 +20,21 @@ def required_user(g):
 		if request.args.get('token')=='':
 			return jsonify({"message": 'You need to first login'})
 		try:
-			data=jwt.decode(request.args.get('token'), app.config['SECRET_KEY'])
+			data=jwt.decode(request.args.get('token'), diary.config['SECRET_KEY'])
 		except:
 			return jsonify({"Alert": 'please login again'})
 		return g(*args, **kwargs)
 	return decorated	
 
-"""Post Entries"""
+
+class Home(Resource):
+
+	def get(self):
+			return jsonify({"message": 'Welcome To Home Page'})
+
+	"""Post Entries"""
 class Entry(Resource):
+	#@required_user	
 	def post(self):
 		if request.method == 'POST':
 			title = request.get_json()['title']
@@ -37,22 +44,27 @@ class Entry(Resource):
 			dbcon.commit()
 		return jsonify({"message": 'Successfuly Posted Entries'})
 
-		""" Get all Entries"""
 	
+		""" Get all Entries"""
+	#@required_user	
 	def get(self):
 		if request.method == 'GET':
 			dbcur.execute("SELECT * FROM entries")
 			data  = dbcur.fetchall()
 		return jsonify(data)
 
-		"""View one entry"""
-	def get(self):
+class EntryId(Resource):
+
+	"""View one entry"""
+	#@required_user	
+	def get(self, id):
 		dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
 		data = dbcur.fetchone()
 		return jsonify(data)
 
-	"""Update Entries"""
-	def put(self):
+		"""Update Entries"""
+	#@required_user	
+	def put(self, id):
 		dbcur.execute("SELECT * FROM 	entries WHERE id = %s", [id])
 		entries = dbcur.fetchone()
 		if request.method == 'PUT':
