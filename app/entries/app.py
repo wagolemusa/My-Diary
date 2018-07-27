@@ -75,3 +75,8 @@ class EntryId(Resource):
 			dbcon.commit()
 		return jsonify({"massege": "Entries Successfuly Updated"})
 
+	def delete(self, id):
+		dbcur.execute("DELETE FROM entries WHERE id = %s", [id])
+		return jsonify({"message":'Post Deleted'})
+
+
