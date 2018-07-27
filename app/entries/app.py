@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, Blueprint
+from flask import Flask, jsonify, request, Blueprint,make_response
 from flask_restful import Resource
 from models import *
 import psycopg2
@@ -18,11 +18,11 @@ def required_user(g):
 	@wraps(g)
 	def decorated(*args, **kwargs):
 		if request.args.get('token')=='':
-			return jsonify({"message": 'You need to first login'})
+			return make_response(("You need to first login"), 201)
 		try:
 			data=jwt.decode(request.args.get('token'), diary.config['SECRET_KEY'])
 		except:
-			return jsonify({"Alert": 'please login again'})
+			return ({"Alert": 'please login again'})
 		return g(*args, **kwargs)
 	return decorated	
 
