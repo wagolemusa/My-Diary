@@ -26,7 +26,6 @@ def required_user(g):
 		return g(*args, **kwargs)
 	return decorated	
 
-
 class Home(Resource):
 
 	def get(self):
