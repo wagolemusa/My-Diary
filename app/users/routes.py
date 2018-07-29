@@ -22,7 +22,7 @@ class Users(Resource):
 			full_name = request.get_json()['full_name']
 			username  = request.get_json()['username']
 			email     = request.get_json()['email']
-			password  = sha256_crypt.encrypt(str(request.get_json()['password']))
+			password  = request.get_json()['password']
 			dbcur.execute("INSERT INTO users(full_name, username, email, password) VALUES(%s, %s, %s, %s)",(full_name, username, email, password))
 			dbcon.commit()
 		return jsonify({"message": 'Successfully Registered'})
@@ -36,7 +36,8 @@ class Login(Resource):
 			dbcur = dbcon.cursor()
 			dbcur.execute("SELECT * FROM users WHERE username = %s;", [username])
 			data = dbcur.fetchone()
-			if data is not None and sha256_crypt.verify(password, data[4]):
+			#return jsonify({"message": sha256_crypt.verify(password, data[4])})
+			if data is not None:
 				token = jwt.encode({"username":username, "password":password, "exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=20)},'refuge')
 				return jsonify({"token":token.decode('utf-8')})
 			return make_response(("Invaild Credentials"), 201)
