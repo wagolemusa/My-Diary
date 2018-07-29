@@ -1,7 +1,7 @@
 import psycopg2
 #import datetime
 
-dbcon = psycopg2.connect(dbname='diary', user='postgres', password='refuge', host='localhost')
+dbcon = psycopg2.connect(dbname='refuges', user='postgres', password='refuge', host='localhost')
 	#try:
 	#	return psycopg2.connect(dbcon)
 	#except:
@@ -32,7 +32,7 @@ try:
 		dates     TEXT   NOT NULL,
 		entries   TEXT   NOT NULL,
 		created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-		FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+		FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 		);''')
 	dbcon.commit()
 except:

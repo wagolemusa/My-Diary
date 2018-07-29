@@ -11,7 +11,7 @@ from __init__ import *
 
 diary = Blueprint('diary', __name__)
 
-dbcon = psycopg2.connect(dbname='diary', user='postgres', password='refuge', host='localhost')
+dbcon = psycopg2.connect(dbname='refuges', user='postgres', password='refuge', host='localhost')
 dbcur = dbcon.cursor()
 
 def required_user(g):
@@ -39,7 +39,10 @@ class Entry(Resource):
 			title = request.get_json()['title']
 			dates = request.get_json()['dates']
 			entries = request.get_json()['entries']
-			dbcur.execute("INSERT INTO entries(title, dates, entries) VALUES(%s, %s, %s )",(title, dates, entries))
+			username = jwt.decode(request.args.get("token"), "refuge")['username']
+			dbcur.execute("SELECT user_id FROM users WHERE username = %s", (username,))
+			user_id = dbcur.fetchone()[0]
+			dbcur.execute("INSERT INTO entries(user_id, title, dates, entries) VALUES(%s, %s, %s, %s )",(user_id, title, dates, entries))
 			dbcon.commit()
 		return jsonify({"message": 'Successfuly Posted Entries'})
 

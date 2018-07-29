@@ -11,7 +11,7 @@ from validetion import *
 
 
 users = Blueprint('users', __name__)
-dbcon = psycopg2.connect(dbname='diary', user='postgres', password='refuge', host='localhost')
+dbcon = psycopg2.connect(dbname='refuges', user='postgres', password='refuge', host='localhost')
 dbcur = dbcon.cursor()
 
 
