@@ -11,7 +11,7 @@ from __init__ import *
 
 diary = Blueprint('diary', __name__)
 
-dbcon = psycopg2.connect(dbname='mydiary', user='postgres', password='refuge', host='localhost')
+dbcon = psycopg2.connect(dbname='diary', user='postgres', password='refuge', host='localhost')
 dbcur = dbcon.cursor()
 
 def required_user(g):
