@@ -22,15 +22,20 @@ class Users(Resource):
 			full_name = request.get_json()['full_name']
 			username = request.get_json()['username']
 			email = request.get_json()['email']
-			password = sha256_crypt.encrypt(str(request.get_json()['password']))
-			x = dbcur.execute("SELECT * FROM users WHERE username = '"+username+"' AND email = '"+email+"';")
-			x = dbcur.fetchone()
-			if x is not None:
-				dbcon.commit()
-				return jsonify(({"massege":"The username  or email is already taken"}), 201)
+			password = request.get_json()['password']
+			confirm_password = request.get_json()['confirm_password']
+			if password == confirm_password:
+				password = sha256_crypt.encrypt(str(request.get_json()['password']))
+				x = dbcur.execute("SELECT * FROM users WHERE username = '"+username+"' OR email = '"+email+"';")
+				x = dbcur.fetchone()
+				if x is not None:
+					dbcon.commit()
+					return jsonify(({"massege":"The username  or email is already taken"}), 201)
+				else:
+					dbcur.execute("INSERT INTO users(full_name, username, email, password) VALUES(%s, %s, %s, %s)",(full_name, username, email, password))
+					dbcon.commit()
 			else:
-				dbcur.execute("INSERT INTO users(full_name, username, email, password) VALUES(%s, %s, %s, %s)",(full_name, username, email, password))
-				dbcon.commit()
+				return jsonify({"message": 'password do not match'})
 		return jsonify({"message": 'Successfully Registered'})
 
 	""" User Login"""
