@@ -14,5 +14,5 @@ api.add_resource(Home, '/')
 api.add_resource(Entry, '/v2/entries')
 api.add_resource(Users,  '/v2/auth/signup')
 api.add_resource(Login,  '/v2/auth/login')
-api.add_resource(EntryId, '/v2/entries/<int:id>')
+api.add_resource(EntryId, '/v2/entries/<int:entry_id>')
 
