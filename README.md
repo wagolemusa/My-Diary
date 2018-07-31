@@ -45,10 +45,10 @@ python app.py
 
 **`POST /api/v2/entries`** *Post Entry*
 
-**`GET  /api/V2/entries/<int:id>`** *Get only one entry*
+**`GET  /api/V2/entries/<entry:id>`** *Get only one entry*
 
 **`GET /api/v2/entries`** *Get all Entries*
 
-**`PUT /api/v2/entries/<int:id>/`** *Update an Entry*
+**`PUT /api/v2/entries/<entry:id>/`** *Update an Entry*
 
-**`DELETE /api/v2/entries/<int:id>`** *Delete an Entry*
+**`DELETE /api/v2/entries/<entry:id>`** *Delete an Entry*
