@@ -28,6 +28,12 @@ class UsersTestCase(unittest.TestCase):
       content_type="application/json")
     self.assertEqual(response.status_code, 200)
       
+  def test_get_user(self):
+    tester = app.test_client(self)
+    response = tester.get('/api/v2/profile', content_type="application/json")
+    data=dict(wagole, refuge, homiemusa)
+    self.assertEqual(response.status_code, 200)
+  
 
 
 
