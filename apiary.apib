@@ -4,77 +4,31 @@ HOST: http://polls.apiblueprint.org/
 # AndelaDiary
 
 Polls is a simple API allowing consumers to view polls and vote in them.
+## Questions Collection [/api/v2]
 
-## Questions Collection [/questions]
+## Register Collection [/api/v2/auth/signup]
 
-### List All Questions [GET]
+When an interested  person may register in the application.
+The system will prompt a user to register with, Full_name, username, email, password, confirm_password
+
+### Registration [POST]
++ Request (application/json)
+    + Attributes 
+        - id: `1` (number) - User id
+        - full_name: `wagole musa` (string) - Full names
+        - username: `refuge` (string) - Username
+        - email: `homiemusa@gmail.com` (string) email Address
+        - password: `wise@12` (string) Password
+        - confirm_password: `wise@12` (string) Password Confirmation
 
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+## Login Collection [/api/v2/auth/login]
+After a user is successfuly Registered, He or she con login with username and password 
 
-### Create a New Question [POST]
+### Login[POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
-
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
++ Request 200 (application/json)
+    + Attributes
+        - username: `refuge` (string)
+        - password: `wise@12` (string)
