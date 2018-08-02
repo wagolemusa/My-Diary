@@ -3,10 +3,21 @@ HOST: http://polls.apiblueprint.org/
 
 # AndelaDiary
 
-Polls is a simple API allowing consumers to view polls and vote in them.
-## Questions Collection [/api/v2]
+## Home Page [/api/v2]
+This the home page, displays message "Welcome to Andela Dairy". 
+When a user vist the application
 
-## Register Collection [/api/v2/auth/signup]
+### Homepage [GET]
++ Response 200 (application/json)
+
+        [
+            {
+                "message":"Welcome to my Dairy
+            }
+            
+        ]
+
+## Register [/api/v2/auth/signup]
 
 When an interested  person may register in the application.
 The system will prompt a user to register with, Full_name, username, email, password, confirm_password
@@ -22,8 +33,12 @@ The system will prompt a user to register with, Full_name, username, email, pass
         - confirm_password: `wise@12` (string) Password Confirmation
 
 + Response 200 (application/json)
+    {
+        "message":"Successfully Registered"
 
-## Login Collection [/api/v2/auth/login]
+    }
+
+## Login [/api/v2/auth/login]
 After a user is successfuly Registered, He or she con login with username and password 
 
 ### Login[POST]
@@ -32,3 +47,69 @@ After a user is successfuly Registered, He or she con login with username and pa
     + Attributes
         - username: `refuge` (string)
         - password: `wise@12` (string)
+        
++ Response 200 (application/json)
+    {
+        "message":"Successfully Logged In"
+    }
+
+
+
+## Entries Collection [/api/v2/entries]
+
+### Post Entries[POST /entries]
+After a user is successfuly authenticated from the system.Can post many 
+entries as they can.
+To post entries a user require "title , dates and content
+
++ Request 200 (application/json)
+    + Attributes 
+        - id: `1` (number) - The ID of the entry
+        - title: `Python`(string) - Title of the entry
+        - dates: `30/09/2018` (string) dates
+        - entries: `I will have to code python` (string) Entries
+        
++ Response 200 (application/json)
+    {
+        "message":"Entry Successfully Posted"
+    }
+
+### Get all entries[GET /entries]
+
+A user on session can view all entries he or she made
+
++ Request 200 (application/json)
+    + Attributes 
+        - id: `1` (number) - The ID of an entry
+        - title: `Python`(string) - Title of the entry
+        - dates: `30/09/2018` (string) dates
+        - entries: `I will have to code python` (string) Entries
+       
+        
+
+### Get Individual Entry post[GET /entries/{id}]
+
++ Paramenter
+    + id: `1` - The id of an entry
+    
++ Response 200 (application/json)
+    + Attributes
+        - title: `Python`(string) - Title of the entry
+        - dates: `30/09/2018` (string) dates
+        - entries: `I will have to code python` (string) Entries    
+
+
+### Update Entry[PUT /entry/{id}]
++ Paramenter
+    + id: `1` - The id of an entry
+    
++ Request (application/json)
+    + Attributes
+        - title: `Python`(string) - Title of the entry
+        - dates: `30/09/2018` (string) dates
+        - entries: `I will have to code python` (string) Entries    
+
++ Response 200 (application/json)
+    {
+        "message":"Sucessfully Updated"
+    }
