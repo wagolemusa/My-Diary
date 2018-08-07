@@ -12,6 +12,7 @@ from __init__ import *
 diary = Blueprint('diary', __name__)
 
 dbcon = psycopg2.connect(dbname='refuges', user='postgres', password='refuge', host='localhost')
+
 dbcur = dbcon.cursor()
 
 def required_user(g):
@@ -20,7 +21,7 @@ def required_user(g):
 		if request.args.get('token')=='':
 			return make_response(("You need to first login"), 201)
 		try:
-			data=jwt.decode(request.args.get('token'), diary.config['SECRET_KEY'])
+			data=jwt.decode(request.args.get('token'), api.config['SECRET_KEY'])
 		except:
 			return ({"Alert": 'please login again'})
 		return g(*args, **kwargs)
@@ -33,7 +34,6 @@ class Home(Resource):
 
 	"""Post Entries"""
 class Entry(Resource):
-	#@required_user	
 	def post(self):
 		if request.method == 'POST':
 			title = request.get_json()['title']
@@ -58,7 +58,7 @@ class Entry(Resource):
 			dbcur.execute("SELECT * FROM entries WHERE user_id =%s",[user_id])
 			data  = dbcur.fetchall()
 		return jsonify(data)
-
+ 
 class EntryId(Resource):
 
 	"""View one entry"""

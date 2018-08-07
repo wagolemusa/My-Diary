@@ -53,6 +53,8 @@ class Login(Resource):
 			return make_response(("Invaild Credentials"), 201)
 		return jsonify("Method not allowed")
 		
+
+
 class UserId(Resource):
 	""" get user """
 	def get(self):
@@ -63,3 +65,13 @@ class UserId(Resource):
 			dbcur.execute("SELECT full_name, username, email FROM users WHERE user_id =%s",[user_id])
 			data  = dbcur.fetchall()
 		return jsonify(data)
+
+
+class UpdateUser(Resource):
+	""" Update user """
+	def get(self):
+		username = jwt.decode(request.args.get("token"), "refuge")["password"]
+		dbcur.execute("SELECT * FROM users WHERE password = %s", (password ,))
+		data = dbcur.fetchall()
+		return jsonify(data)
+
