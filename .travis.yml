@@ -17,6 +17,6 @@ before_script:
   - psql -c 'create database travis;' -U postgres
 script: 
   - pytest
-  - pytest --cov=app
+  - pytest --cov=.
 after_success:
 - coveralls  
