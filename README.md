@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/wagolemusa/My-Diary.svg?branch=Challenge-2)](https://travis-ci.org/wagolemusa/My-Diary)
+[![Coverage Status](https://coveralls.io/repos/github/wagolemusa/My-Diary/badge.svg?branch=master)](https://coveralls.io/github/wagolemusa/My-Diary?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e29fcbc2317c1e18ebe5/maintainability)](https://codeclimate.com/github/wagolemusa/My-Diary/maintainability)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg)
 ![Jenkins tests](https://img.shields.io/jenkins/t/https/jenkins.qa.ubuntu.com/view/Precise/view/All%20Precise/job/precise-desktop-amd64_default.svg)
