@@ -18,6 +18,5 @@ before_script:
 script: 
   - pytest
   - pytest --cov=.
-  
 after_success:
 - coveralls  
