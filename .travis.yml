@@ -1,14 +1,18 @@
 language: python
 
 service:
-  - postgres
+  - postgresql
 python:
 # only test against versions: 
-  -'3.4'
-  -'3.6'
+  - '3.4'
+  
 install:
   - pip install -r requirements.txt
+  - pip install coveralls
+  - pip install pytest-cov
+
 before_script:
+
   - cd tests
   - psql -c 'create database travis;' -U postgres
 script: 
