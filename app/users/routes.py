@@ -56,7 +56,7 @@ class Login(Resource):
 				payload = {"username":username, "password":password,\
 			 					"exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=20)}
 				token = jwt.encode(payload, 'refuge')
-				return jsonify({"token":token.decode('utf-8')})
+				return jsonify({"token":token.decode('utf-8')}
 			else:
 				return jsonify({"message": 'Wrong Credatials'})
 
@@ -70,3 +70,13 @@ class UserId(Resource):
 			dbcur.execute("SELECT full_name, username, email FROM users WHERE user_id =%s",[user_id])
 			data  = dbcur.fetchall()
 		return jsonify(data)
+
+
+class UpdateUser(Resource):
+	""" Update user """
+	def get(self):
+		username = jwt.decode(request.args.get("token"), "refuge")["password"]
+		dbcur.execute("SELECT * FROM users WHERE password = %s", (password ,))
+		data = dbcur.fetchall()
+		return jsonify(data)
+
