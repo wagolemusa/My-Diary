@@ -4,6 +4,8 @@ from models import *
 import psycopg2
 from passlib.hash import sha256_crypt
 import jwt
+import hashlib
+import base64
 from functools import wraps
 import datetime
 from __init__ import *
@@ -43,17 +45,20 @@ class Login(Resource):
 	def post(self):
 		if request.method == 'POST':
 			username = request.get_json()['username']
-			password = request.get_json()['password']
+			password = hashlib.sha256(base64.b64encode\
+				(bytes(request.get_json()['password'], 'utf-8'))).hexdigest()
+			payload = {}
+
 			dbcur = dbcon.cursor()
 			dbcur.execute("SELECT * FROM users WHERE username = %s;", [username])
 			data = dbcur.fetchone()
-			if data is not None and sha256_crypt.verify(password, data[4]):
-				token = jwt.encode({"username":username, "password":password, "exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=20)},'refuge')
-				return jsonify({"token":token.decode('utf-8')})
-			return make_response(("Invaild Credentials"), 201)
-		return jsonify("Method not allowed")
-		
-
+			if data is not None:
+				payload = {"username":username, "password":password,\
+			 					"exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=20)}
+				token = jwt.encode(payload, 'refuge')
+				return jsonify({"token":token.decode('utf-8')}
+			else:
+				return jsonify({"message": 'Wrong Credatials'})
 
 class UserId(Resource):
 	""" get user """
