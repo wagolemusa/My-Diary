@@ -56,7 +56,7 @@ class Login(Resource):
 				payload = {"username":username, "password":password,\
 			 					"exp":datetime.datetime.utcnow()+datetime.timedelta(minutes=20)}
 				token = jwt.encode(payload, 'refuge')
-				return jsonify({"token":token.decode('utf-8')}
+				return jsonify({"token":token.decode('utf-8')})
 			else:
 				return jsonify({"message": 'Wrong Credatials'})
 
