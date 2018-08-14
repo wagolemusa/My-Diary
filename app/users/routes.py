@@ -17,6 +17,18 @@ dbcon = psycopg2.connect(dbname='refuges', user='postgres', password='refuge', h
 dbcur = dbcon.cursor()
 
 
+def required_user(g):
+	@wraps(g)
+	def decorated(*args, **kwargs):
+		if request.headers.get('X-API-KEY')=='':
+			return make_response(("You need to first login"), 201)
+		try:
+			jwt.decode(request.headers.get('X-API-KEY'), "refuge")
+		except:
+			return jsonify({"message": 'please login again'})
+		return g(*args, **kwargs)
+	return decorated 
+
 class Users(Resource):
 	"""User Register"""
 	def post(self):
@@ -63,7 +75,7 @@ class Login(Resource):
 class UserId(Resource):
 	""" get user """
 	def get(self):
-		username = jwt.decode(request.args.get("token"), "refuge")["username"]
+		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
 		dbcur.execute("SELECT user_id FROM users WHERE username = %s",(username,))
 		user_id = dbcur.fetchone()[0]
 		if request.method == 'GET':
@@ -74,8 +86,9 @@ class UserId(Resource):
 
 class UpdateUser(Resource):
 	""" Update user """
+	@required_user
 	def get(self):
-		username = jwt.decode(request.args.get("token"), "refuge")["password"]
+		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['password']
 		dbcur.execute("SELECT * FROM users WHERE password = %s", (password ,))
 		data = dbcur.fetchall()
 		return jsonify(data)
