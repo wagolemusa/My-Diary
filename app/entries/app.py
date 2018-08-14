@@ -15,17 +15,18 @@ dbcon = psycopg2.connect(dbname='refuges', user='postgres', password='refuge', h
 
 dbcur = dbcon.cursor()
 
+
 def required_user(g):
 	@wraps(g)
 	def decorated(*args, **kwargs):
-		if request.args.get('token')=='':
+		if request.headers.get('X-API-KEY')=='':
 			return make_response(("You need to first login"), 201)
 		try:
-			data=jwt.decode(request.args.get('token'), api.config['SECRET_KEY'])
+			jwt.decode(request.headers.get('X-API-KEY'), "refuge")
 		except:
-			return ({"Alert": 'please login again'})
+			return jsonify({"message": 'please login again'})
 		return g(*args, **kwargs)
-	return decorated	
+	return decorated 
 
 class Home(Resource):
 
@@ -34,12 +35,15 @@ class Home(Resource):
 
 	"""Post Entries"""
 class Entry(Resource):
+
+	@required_user
 	def post(self):
 		if request.method == 'POST':
 			title = request.get_json()['title']
 			dates = request.get_json()['dates']
 			entries = request.get_json()['entries']
-			username = jwt.decode(request.args.get("token"), "refuge")["username"]
+			username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
+
 			dbcur.execute("SELECT user_id FROM users WHERE username = %s", (username,))
 			user_id = dbcur.fetchone()[0]
 			dbcur.execute("""INSERT INTO entries(user_id, title, dates, entries)
@@ -49,9 +53,9 @@ class Entry(Resource):
 
 	
 		""" Get all Entries"""
-	#@required_user	
+	@required_user
 	def get(self):
-		username = jwt.decode(request.args.get("token"), "refuge")["username"]
+		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
 		dbcur.execute("SELECT user_id FROM users WHERE username = %s",(username,))
 		user_id = dbcur.fetchone()[0]
 		if request.method == 'GET':
@@ -64,7 +68,7 @@ class EntryId(Resource):
 	"""View one entry"""
 	#@required_user	
 	def get(self, entry_id):
-		username = jwt.decode(request.args.get("token"), "refuge")["username"]
+		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
 		dbcur.execute("SELECT user_id FROM users WHERE username = %s", (username,))
 		user_id = dbcur.fetchone()[0]
 		if request.method == 'GET':	
@@ -75,8 +79,7 @@ class EntryId(Resource):
 		"""Update Entries"""
 	#@required_user	
 	def put(self, entry_id):
-
-		username = jwt.decode(request.args.get("token"), "refuge")["username"]
+		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
 		dbcur.execute("SELECT user_id FROM users WHERE username = %s",(username,))
 		user_id = dbcur.fetchone()[0]
 		if request.method == 'PUT':
@@ -90,7 +93,7 @@ class EntryId(Resource):
 		return jsonify({"massege": "Entries Successfuly Updated"})
 
 	def delete(self, entry_id):
-		username = jwt.decode(request.args.get("token"), "refuge")["username"]
+		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
 		dbcur.execute("SELECT user_id FROM users WHERE username = %s", (username,))
 		user_id = dbcur.fetchone()[0]
 		dbcur.execute("""DELETE FROM entries WHERE ID =%s AND user_id =%s""", 
