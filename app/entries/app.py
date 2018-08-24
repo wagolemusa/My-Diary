@@ -62,6 +62,13 @@ class Entry(Resource):
 			dbcur.execute("SELECT * FROM entries WHERE user_id =%s",[user_id])
 			data  = dbcur.fetchall()
 		return jsonify(data)
+
+class AllEntries(Resource):
+	def get(self):
+		dbcur.execute("SELECT title, dates, entries FROM  entries")
+		data = dbcur.fetchall()
+		return jsonify(data)
+
  
 class EntryId(Resource):
 

@@ -84,6 +84,7 @@ class UserId(Resource):
 		return jsonify(data)
 
 
+
 class UpdateUser(Resource):
 	""" Update user """
 	@required_user
