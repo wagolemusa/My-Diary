@@ -94,3 +94,18 @@ class UpdateUser(Resource):
 		data = dbcur.fetchall()
 		return jsonify(data)
 
+class UserLogout(Resource):
+	@required_user
+	def get(self):
+		try:
+			token = request.headers.get('X-API-KEY')
+			clear = "DELETE FROM blacklist WHERE time < NOW() - INTERVAL '45 minutes';"
+			sql = " INSERT INTO blacklist(token)VALUES ('"+token+"');"
+			dbcur = dbcon.cursor()
+			dbcur.execute(clear)
+			dbcur.execute(sql)
+			dbcon.commit()
+			return jsonify({"message":"You have been successfully logged out. Token invalidate"})
+		except TypeError:
+			return jsonfy({"message":'You con only logout if you were logged in'})
+

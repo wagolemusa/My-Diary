@@ -10,6 +10,7 @@ from users.routes import Users
 from users.routes import Login
 from users.routes import UserId
 from users.routes import UpdateUser
+from users.routes import UserLogout
 
 
 api_bp = Blueprint('api', __name__)
@@ -27,6 +28,7 @@ api.add_resource(AllEntries, '/v2/all_entries')
 api.add_resource(Users,  '/v2/auth/signup')
 api.add_resource(Login,  '/v2/auth/login')
 api.add_resource(UserId,  '/v2/profile')
+api.add_resource(UserLogout,   '/v2/logout/users')
 api.add_resource(UpdateUser, '/v2/profile/update')
 api.add_resource(EntryId, '/v2/entries/<int:entry_id>')
 
