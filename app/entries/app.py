@@ -33,9 +33,22 @@ class Home(Resource):
 	def get(self):
 			return jsonify({"message": 'Welcome To Home Page'})
 
+
+""" Get all entries """
+class AllEntries(Resource):
+	def get(self):
+		dbcur.execute("SELECT title, dates, entries FROM  entries")
+		data = dbcur.fetchall()
+		return jsonify(data)
+
+
+# class UserEntries(Resource):
+# 	def get(self):
+# 		dbcur.execute("SELECT user_id, title, dates FROM entries WHERE ")
+
+
 	"""Post Entries"""
 class Entry(Resource):
-
 	@required_user
 	def post(self):
 		if request.method == 'POST':
@@ -51,7 +64,8 @@ class Entry(Resource):
 			dbcon.commit()
 		return jsonify({"message": 'Successfuly Posted Entries'})
 
-	
+
+
 		""" Get all Entries"""
 	@required_user
 	def get(self):
@@ -61,12 +75,22 @@ class Entry(Resource):
 		if request.method == 'GET':
 			dbcur.execute("SELECT * FROM entries WHERE user_id =%s",[user_id])
 			data  = dbcur.fetchall()
-		return jsonify(data)
- 
-class EntryId(Resource):
+			data_list = []
+			for row in data:
+				entry_id = row[0]
+				title = row[2]
 
+				dates = row[3]
+				entries = row[4]
+				data_list.append({"entry_id":entry_id, "title":title, "dates":dates, "entries":entries})
+
+		return jsonify({"data": data_list})
+		#return jsonify(data)
+ 
+
+class EntryId(Resource):
 	"""View one entry"""
-	#@required_user	
+	@required_user	
 	def get(self, entry_id):
 		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
 		dbcur.execute("SELECT user_id FROM users WHERE username = %s", (username,))
@@ -76,8 +100,9 @@ class EntryId(Resource):
 			data = dbcur.fetchone()
 		return jsonify(data)
 
+
 		"""Update Entries"""
-	#@required_user	
+	@required_user	
 	def put(self, entry_id):
 		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
 		dbcur.execute("SELECT user_id FROM users WHERE username = %s",(username,))
@@ -92,6 +117,10 @@ class EntryId(Resource):
 			dbcon.commit()
 		return jsonify({"massege": "Entries Successfuly Updated"})
 
+
+
+	"""Delete  Entries"""
+	@required_user	
 	def delete(self, entry_id):
 		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['username']
 		dbcur.execute("SELECT user_id FROM users WHERE username = %s", (username,))
@@ -99,5 +128,3 @@ class EntryId(Resource):
 		dbcur.execute("""DELETE FROM entries WHERE ID =%s AND user_id =%s""", 
 									(entry_id, user_id))
 		return jsonify({"message":'Post Deleted'})
-
-

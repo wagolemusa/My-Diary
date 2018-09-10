@@ -38,3 +38,11 @@ try:
 except:
 		print ('Table is already exist')
 
+try:
+	dbcur = dbcon.cursor()
+	dbcur.execute('''CREATE TABLE blacklist(
+		token varchar PRIMARY KEY NOT NULL,time\
+		TIMESTAMP default CURRENT_TIMESTAMP);''')
+	dbcon.commit()
+except:
+	print ('Table is already exist')
