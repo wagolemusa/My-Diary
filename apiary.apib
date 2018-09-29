@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://dairyapp.herokuapp.com/api/
 
 # AndelaDiary
 
@@ -54,7 +54,18 @@ After a user is successfuly Registered, He or she con login with username and pa
     }
 
 
+### Get User profile[GET /v2/profile]
+User Can view his or her profile
 
++ Request 200 (application/json)
+    + Attributes 
+        - id: `1` (number) - User ID
+        - full_name:`wagole musa`(string) fullname
+        - username: `refuge`(string) - username
+        - email: `homiemus@gmail.com`(string) - Email
+
+        
+        
 ## Entries Collection [/api/v2/entries]
 
 ### Post Entries[POST /entries]
@@ -115,6 +126,7 @@ A user on session can view all entries he or she made
         }
 
 ### Delete Entry[DELETE /entry/{id}]
+User Can delete there own entries
 
 + Paramenter
     + id: `1`
@@ -123,4 +135,61 @@ A user on session can view all entries he or she made
         {
             "message":"Sucessfully Deleted"
     
+  
+        }
+
+### User Update Account [PUT /v2/profile/update/{id}]
+User should have to update his or her own Account, for securty
++ Paramenter
+    + id: `1` - User id
+    
++ Request (application/json)
+    + Attributes
+        - full_name: `wagole musa`(string) - Full name
+        - username: `refuge` (string) Username
+        - email: `homiemusa@gmail.com` (string) Email    
+
++ Response 200 (application/json)
+        {
+            "message":"Sucessfully Updated"
+        }
+        
+
+### Get all entries With user[GET /v2/all_entries]
+
+Users should see every entries and who posted it "username"
+
++ Request 200 (application/json)
+    + Attributes 
+        - id: `1` (number) - The ID of an entry
+        - username: `refuge`(string) - User who posted
+        - title: `Python`(string) - Title of the entry
+        - dates: `30/09/2018` (string) dates
+        - entries: `I will have to code python` (string) Entries
+
+
+### Get One entry[GET /v2/all_entries/{1d}]
+Display an entry on the show page
+
++ Paramenter
+    + id: `1` - entry id
+    
++ Request 200 (application/json)
+    + Attributes 
+        - id: `1` (number) - The ID of an entry
+        - title: `Python`(string) - Title of the entry
+        - dates: `30/09/2018` (string) dates
+        - entries: `I will have to code python` (string) Entries
+        
+        
+### Delete session[DELETE /v2/users/logout]
+User can logout by using session, once you logout the session is deleted
++ Paramenter
+    + id: `1` with sessoin
+    
++ Response 200 (application/json)
+        {
+            "message":"Sucessfully Logout"
+    
+  
         }
