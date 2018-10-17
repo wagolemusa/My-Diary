@@ -37,6 +37,7 @@ class Home(Resource):
 """ Get all entries """
 class AllEntries(Resource):
 	def get(self):
+<<<<<<< HEAD
 		dbcur.execute("SELECT * FROM  entries")
 		data = dbcur.fetchall()
 		allEntries = []
@@ -64,6 +65,18 @@ class ShowEntries(Resource):
 		return jsonify({"data": data_lists})
 
 	
+=======
+		dbcur.execute("SELECT title, dates, entries FROM  entries")
+		data = dbcur.fetchall()
+		return jsonify(data)
+
+
+# class UserEntries(Resource):
+# 	def get(self):
+# 		dbcur.execute("SELECT user_id, title, dates FROM entries WHERE ")
+
+
+>>>>>>> 553758a17ecbef0603c7fb78b0984c402539c3f1
 	"""Post Entries"""
 class Entry(Resource):
 	@required_user
@@ -83,6 +96,10 @@ class Entry(Resource):
 		return jsonify({"message": 'Successfuly Posted Entries'})
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 553758a17ecbef0603c7fb78b0984c402539c3f1
 		""" Get all Entries"""
 	@required_user
 	def get(self):
@@ -95,11 +112,22 @@ class Entry(Resource):
 			data_list = []
 			for row in data:
 				entry_id = row[0]
+<<<<<<< HEAD
 				title = row[3]
 				dates = row[4]
 				entries = row[5]
 				data_list.append({"entry_id":entry_id, "title":title, "dates":dates, "entries":entries})
 		return jsonify({"data": data_list})
+=======
+				title = row[2]
+
+				dates = row[3]
+				entries = row[4]
+				data_list.append({"entry_id":entry_id, "title":title, "dates":dates, "entries":entries})
+
+		return jsonify({"data": data_list})
+		#return jsonify(data)
+>>>>>>> 553758a17ecbef0603c7fb78b0984c402539c3f1
  
 
 class EntryId(Resource):
@@ -120,6 +148,7 @@ class EntryId(Resource):
 				entries = row[5]
 				data_list.append({"entry_id":entry_id, "title":title, "dates":dates, "entries":entries})
 		return jsonify({"data": data_list})
+
 
 
 		"""Update Entries"""

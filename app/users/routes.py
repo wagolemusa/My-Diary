@@ -136,11 +136,29 @@ class UserId(Resource):
 		return jsonify({"data": Users})
 
 
+<<<<<<< HEAD
 class UserLogout(Resource):
 	@required_user
 	def get(self):
 		try:
 			token = request.headers.get('x-access-token')
+=======
+
+class UpdateUser(Resource):
+	""" Update user """
+	@required_user
+	def get(self):
+		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['password']
+		dbcur.execute("SELECT * FROM users WHERE password = %s", (password ,))
+		data = dbcur.fetchall()
+		return jsonify(data)
+
+class UserLogout(Resource):
+	@required_user
+	def get(self):
+		try:
+			token = request.headers.get('X-API-KEY')
+>>>>>>> 553758a17ecbef0603c7fb78b0984c402539c3f1
 			clear = "DELETE FROM blacklist WHERE time < NOW() - INTERVAL '45 minutes';"
 			sql = " INSERT INTO blacklist(token)VALUES ('"+token+"');"
 			dbcur = dbcon.cursor()
@@ -150,3 +168,7 @@ class UserLogout(Resource):
 			return jsonify({"message":"You have been successfully logged out. Token invalidate"})
 		except TypeError:
 			return jsonfy({"message":'You con only logout if you were logged in'})
+<<<<<<< HEAD
+=======
+
+>>>>>>> 553758a17ecbef0603c7fb78b0984c402539c3f1
