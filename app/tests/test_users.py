@@ -7,8 +7,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 class UsersTestCase(unittest.TestCase):
 
-
-
+  
   def test_signup_user(self):
     tester = app.test_client(self)
     response = tester.post('/api/v2/auth/signup', content_type="application/json")

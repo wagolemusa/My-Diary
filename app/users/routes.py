@@ -136,20 +136,21 @@ class UserId(Resource):
 		return jsonify({"data": Users})
 
 
-class UserLogout(Resource):
-	@required_user
-	def get(self):
-		try:
-			token = request.headers.get('x-access-token')
+# class UserLogout(Resource):
+# 	@required_user
+# 	def get(self):
+# 		try:
+# 			token = request.headers.get('x-access-token')
+
 
 class UpdateUser(Resource):
-	""" Update user """
 	@required_user
 	def get(self):
 		username = jwt.decode(request.headers.get('X-API-KEY'), 'refuge')['password']
 		dbcur.execute("SELECT * FROM users WHERE password = %s", (password ,))
 		data = dbcur.fetchall()
 		return jsonify(data)
+
 
 class UserLogout(Resource):
 	@required_user
