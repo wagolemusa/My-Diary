@@ -28,6 +28,7 @@ try:
 	dbcur.execute('''CREATE TABLE entries(
 		id    SERIAL PRIMARY KEY,
 		user_id   INT,
+		username   TEXT,
 		title     TEXT   NOT NULL,
 		dates     TEXT   NOT NULL,
 		entries   TEXT   NOT NULL,
