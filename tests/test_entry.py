@@ -6,7 +6,7 @@ import sys
 import psycopg2
 # from __init__ import *
 sys.path.insert(0, os.path.abspath(".."))
-from run import api_bp
+
 
 def tear():
   dbcon = psycopg2.connect(dbname='refuges', user='postgres', password='refuge', host='localhost')

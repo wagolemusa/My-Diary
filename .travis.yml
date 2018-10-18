@@ -18,7 +18,7 @@ install:
 
 before_script:
 
-  - cd app/tests
+  - cd tests
   - psql -c 'create database travis;' -U postgres
 script: 
   - pytest
